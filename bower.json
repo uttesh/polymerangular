@@ -1,10 +1,10 @@
 {
   "name": "planner",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "authors": [
-    "uttesh <uttesh@gmail.com>"
+    "androkumar04 <androkumar04@gmail.com>"
   ],
-  "description": "PolymerAngular Framework",
+  "description": "google polymer inial project",
   "main": "index.html",
   "keywords": [
     "polymer"
