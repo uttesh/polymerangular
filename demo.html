@@ -120,106 +120,156 @@
             box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2);
             transition-delay: 0s;
         }
+
+        paper-tabs, core-toolbar {
+            background-color: #377880;
+            color: #fff;
+            box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        core-toolbar paper-tabs {
+            box-shadow: none;
+        }
+
+        paper-tabs.transparent-teal {
+            background-color: transparent;
+            color: #00bcd4;
+            box-shadow: none;
+        }
+
+        paper-tabs.transparent-teal::shadow #selectionBar {
+            background-color: #00bcd4;
+        }
+
+        paper-tabs.transparent-teal paper-tab::shadow #ink {
+            color: #00bcd4;
+        }
     </style>
     <body unresolved>
 
-        <section>
+        <section ng-controller="buttonCtrl">
             <p>ripple  buttons</p> <br>
-            <pa-ripple mode="btn" label="SUBMIT" class=""></pa-ripple>
+            <poly-ripple mode="btn" label="SUBMIT" ng-click="raisedButton()"></poly-ripple>
 
-            <pa-ripple mode="btn" label="CANCEL" class="grey"></pa-ripple>
+            <poly-ripple mode="btn" label="CANCEL" class="grey"></poly-ripple>
 
-            <pa-ripple mode="btn" label="COMPOSE" class="blue"></pa-ripple>
+            <poly-ripple mode="btn" label="COMPOSE" class="blue"></poly-ripple>
 
-            <pa-ripple mode="btn" label="OK" class="green"></pa-ripple>
+            <poly-ripple mode="btn" label="OK" class="green"></poly-ripple>
 
         </section>
+
+
     <column>
 
         <section>
             <span>icon buttons</span>
-            <pa-button mode="icon" icon="menu"></pa-button>
-            <pa-button mode="icon" icon="arrow-back"></pa-button>
-            <pa-button mode="icon" icon="arrow-forward"></pa-button>
-            <pa-button mode="icon" icon="check"></pa-button>
-            <pa-button mode="icon" icon="close"></pa-button>
-            <pa-button mode="icon" icon="fullscreen"></pa-button>
-            <pa-button mode="icon" icon="fullscreen-exit"></pa-button>
-            <pa-button mode="icon" icon="more-vert"></pa-button>
-            <pa-button mode="icon" icon="refresh"></pa-button>
+            <poly-button mode="icon" icon="menu"></poly-button>
+            <poly-button mode="icon" icon="arrow-back"></poly-button>
+            <poly-button mode="icon" icon="arrow-forward"></poly-button>
+            <poly-button mode="icon" icon="check"></poly-button>
+            <poly-button mode="icon" icon="close"></poly-button>
+            <poly-button mode="icon" icon="fullscreen"></poly-button>
+            <poly-button mode="icon" icon="fullscreen-exit"></poly-button>
+            <poly-button mode="icon" icon="more-vert"></poly-button>
+            <poly-button mode="icon" icon="refresh"></poly-button>
         </section>
 
         <!--               <section>
                             <span>styled</span>
-                            <pa-button mode="icon"  icon="favorite"></pa-button>
-                            <pa-button mode="icon"  class="red" icon="favorite"></pa-button>
-                            <pa-button mode="icon"  disabled icon="favorite"></pa-button>
+                            <poly-button mode="icon"  icon="favorite"></poly-button>
+                            <poly-button mode="icon"  class="red" icon="favorite"></poly-button>
+                            <poly-button mode="icon"  disabled icon="favorite"></poly-button>
                         </section>-->
 
     </column>
-    <section ng-controller="buttonCtrl">
-                <pa-button label="button" ng-click="raisedButton()" btntype="flat"></<pa-button>
-                <br>
-                <pa-button class="colored" label="colored" btntype="flat"></pa-button>
-                <br>
-                <pa-button disabled label="disabled" btntype="flat"></pa-button>
-                <br>
-                <div class="label">flat button</div>
-                </section>
-                    
-                                <section>
-                                    <pa-button  label="button" btntype="raisedButton"></pa-button>
-                                    <br>
-                                    <pa-button btntype="raisedButton" class="colored" label="colored"></pa-button>
-                                    <br>
-                                    <pa-button btntype="raisedButton" disabled label="disabled"></pa-button>
-                                    <br>
-                                    <div class="label">raised button</div>
-                                </section>
-                <!--
-                                <br>
-                                <br>
-                
-                                <section>
-                                    <pa-button class="hover" label="button" btntype="flat"></pa-button>
-                                    <br>
-                                    <pa-button class="colored hover" label="colored" btntype="flat"></pa-button>
-                                    <br>
-                                    <div class="label">flat + hover state</div>
-                                </section>
-                
-                                <section>
-                                    <pa-button  btntype="raisedButton" class="hover" label="button"></pa-button>
-                                    <br>
-                
-                                    <pa-button  btntype="raisedButton" class="colored hover" label="colored"></pa-button>
-                                    <br>
-                                    <div class="label">raised + hover state</div>
-                                </section>
-                
-                                <br>
-                                <br>
-                
-                                <section>
-                                    <pa-button mode="focused" label="button"></pa-button>
-                                    <br>
-                                    <pa-button mode="focused" class="colored" label="colored"></pa-button>
-                                    <br>
-                                    <div class="label">flat + focused</div>
-                                </section>
-                
-                                <section>
-                                    <pa-button btntype="raisedButton" mode="focused" label="button"></pa-button>
-                                    <br>
-                                    <pa-button btntype="raisedButton" mode="focused" class="colored"></pa-button>
-                                    <br>
-                                    <div class="label">raised + focused</div>
-                                </section>-->
+    <h3>No ink effect and no sliding bar</h3>
+    <section ng-controller="buttonCtrl" style="width: 80%;">
+        <poly-tabs selected="0" noink>
+            <poly-tab title="ITEM ONE"></poly-tab>
+            <poly-tab title="ITEM TWO"></poly-tab>
+            <poly-tab title="ITEM THREE"></poly-tab>
+        </poly-tabs>
+        <div ng-if="selectedTab == 0" style="height: 100px;background-color: gainsboro;">Tab1</div>
+        <div ng-if="selectedTab == 1" style="height: 100px;background-color: red;">Tab2</div>
+        <div ng-if="selectedTab == 2" style="height: 100px;background-color: green;">Tab3</div>
+    </section>
 
-                </body>
+    <h3>ink effect and sliding bar</h3>
+    <section ng-controller="buttonCtrl" style="width: 80%;">
+        <poly-tabs selected="0" ink>
+            <poly-tab title="ITEM ONE"></poly-tab>
+            <poly-tab title="ITEM TWO"></poly-tab>
+            <poly-tab title="ITEM THREE"></poly-tab>
+        </poly-tabs>
+        <div ng-if="selectedTab == 0" style="height: 100px;background-color: gainsboro;">Tab1</div>
+        <div ng-if="selectedTab == 1" style="height: 100px;background-color: red;">Tab2</div>
+        <div ng-if="selectedTab == 2" style="height: 100px;background-color: green;">Tab3</div>
+    </section>
 
-                <script src="angular.js"></script>
-                <script src="polymerAngular.js"></script>
-                <script src="app.js"></script>
+        <!--    <section ng-controller="buttonCtrl">
+                        <poly-button label="button" ng-click="raisedButton()" btntype="flat"></<poly-button>
+                        <br>
+                        <poly-button class="colored" label="colored" btntype="flat"></poly-button>
+                        <br>
+                        <poly-button disabled label="disabled" btntype="flat"></poly-button>
+                        <br>
+                        <div class="label">flat button</div>
+                        </section>
+                            
+                                        <section>
+                                            <poly-button  label="button" btntype="raisedButton"></poly-button>
+                                            <br>
+                                            <poly-button btntype="raisedButton" class="colored" label="colored"></poly-button>
+                                            <br>
+                                            <poly-button btntype="raisedButton" disabled label="disabled"></poly-button>
+                                            <br>
+                                            <div class="label">raised button</div>
+                                        </section>-->
+        <!--
+                        <br>
+                        <br>
+        
+                        <section>
+                            <poly-button class="hover" label="button" btntype="flat"></poly-button>
+                            <br>
+                            <poly-button class="colored hover" label="colored" btntype="flat"></poly-button>
+                            <br>
+                            <div class="label">flat + hover state</div>
+                        </section>
+        
+                        <section>
+                            <poly-button  btntype="raisedButton" class="hover" label="button"></poly-button>
+                            <br>
+        
+                            <poly-button  btntype="raisedButton" class="colored hover" label="colored"></poly-button>
+                            <br>
+                            <div class="label">raised + hover state</div>
+                        </section>
+        
+                        <br>
+                        <br>
+        
+                        <section>
+                            <poly-button mode="focused" label="button"></poly-button>
+                            <br>
+                            <poly-button mode="focused" class="colored" label="colored"></poly-button>
+                            <br>
+                            <div class="label">flat + focused</div>
+                        </section>
+        
+                        <section>
+                            <poly-button btntype="raisedButton" mode="focused" label="button"></poly-button>
+                            <br>
+                            <poly-button btntype="raisedButton" mode="focused" class="colored"></poly-button>
+                            <br>
+                            <div class="label">raised + focused</div>
+                        </section>-->
 
-                </html>
+    </body>
+
+    <script src="angular.js"></script>
+    <script src="polymerAngular.js"></script>
+    <script src="app.js"></script>
+
+</html>

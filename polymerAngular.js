@@ -1,5 +1,4 @@
-angular.module('polymerAngular', ['polymerAngular.buttons', 'polymerAngular.ripple']);
-
+angular.module('polymerAngular', ['polymerAngular.generalattributes', 'polymerAngular.buttons', 'polymerAngular.ripple', 'polymerAngular.tabs']);
 angular.module('polymerAngular.buttons', [])
 
         .constant('buttonConfig', {
@@ -12,7 +11,7 @@ angular.module('polymerAngular.buttons', [])
                 this.toggleEvent = buttonConfig.toggleEvent || 'click';
             }])
 
-        .directive('paButton', function() {
+        .directive('polyButton', function() {
             return {
                 restrict: 'E',
                 link: function(scope, element, attrs) {
@@ -22,11 +21,8 @@ angular.module('polymerAngular.buttons', [])
                     var label = attrs.label;
                     var mode = attrs.mode;
                     var icon = attrs.icon;
-
-
                     var tag;
                     var Icontag;
-
                     if ((btnType !== null) && (btnType !== undefined) && (btnType !== '')) {
                         tag = btnType;
                         Icontag = btnType;
@@ -57,7 +53,7 @@ angular.module('polymerAngular.buttons', [])
         })
 
 angular.module('polymerAngular.ripple', [])
-        .directive('paRipple', function() {
+        .directive('polyRipple', function() {
             return {
                 restrict: 'E',
                 link: function(scope, element, attrs) {
@@ -80,4 +76,94 @@ angular.module('polymerAngular.ripple', [])
                 }
             };
         })
+
+angular.module('polymerAngular.generalattributes', [])
+        .directive('action', function() {
+            return {
+                restrict: 'A',
+                scope: true,
+                link: function(scope, element, attrs) {
+                    element.bind('click', function(e) {
+                        alert('raise event');
+                        attrs.action();
+                    });
+                }
+            };
+        })
+
+
+angular.module('polymerAngular.tabs', [])
+
+        .directive('polyTabs', function() {
+            return {
+                restrict: 'E',
+                transclude: true,
+                //replace: true,
+                scope: {},
+                controller: tabscontroller,
+                link: tabslinker,
+                template: tabsTemplate,
+            };
+        })
+
+        .directive('polyTab', function() {
+            return {
+                require: '^polyTabs',
+                restrict: 'E',
+                //transclude: true,
+                scope: {},
+                link: function(scope, element, attrs, tabsCtrl) {
+                    attrs.$set('index', tabsCtrl.getTabsSize());
+                    tabsCtrl.addTab(attrs);
+                },
+                template:
+                        '<div><paper-tab ></paper-tab></div>',
+                //replace: true
+            };
+        })
+
+var tabslinker = function(scope, element, attrs, tabsCtrl) {
+    scope.tabClicked = function(tab) {
+        scope.$parent.tabClicked(tab);
+    };
+}
+var tabscontroller = function($scope) {
+    var tabs = $scope.tabs = [];
+    this.addTab = function(tab) {
+        tabs.push(tab);
+    }
+    this.getTabsSize = function() {
+        return tabs.length;
+    }
+}
+function contains(a, obj) {
+    for (var i = 0; i < a.length; i++) {
+        if (a[i].name === obj) {
+            return true;
+        }
+    }
+    return false;
+}
+var tabsTemplate = function($scope) {
+    var test = $scope;
+    if (contains(test[0].attributes, 'noink')) {
+        return "<div class='tabbable'>" +
+                "<paper-tabs noink>" +
+                "<paper-tab ng-repeat='tab in tabs' ng-click='tabClicked(tab)'>" +
+                "{{tab.title}}" +
+                "</paper-tab>" +
+                "</paper-tabs>" +
+                "<div class='tab-content' ng-transclude></div>" +
+                "</div>";
+    }else{
+        return "<div class='tabbable'>" +
+                "<paper-tabs ink>" +
+                "<paper-tab ng-repeat='tab in tabs' ng-click='tabClicked(tab)'>" +
+                "{{tab.title}}" +
+                "</paper-tab>" +
+                "</paper-tabs>" +
+                "<div class='tab-content' ng-transclude></div>" +
+                "</div>";
+    }
+}
 
